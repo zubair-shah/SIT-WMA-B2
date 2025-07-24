@@ -1,37 +1,28 @@
 import { useState, useEffect } from "react";
 import Pet from "./Pet";
+import useBreedList from "../hooks/useBreedList";
+
 const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
 
 function SearchParams() {
   const [location, setLocation] = useState("");
   const [animal, setAnimal] = useState("");
   const [breed, setBreed] = useState("");
-
+  const [breeds, status] = useBreedList(animal);
   const [pets, setPets] = useState([]);
-  const [breedList, setBreedList] = useState([]);
-  console.log("Location:", location);
-  console.log("animal:", animal);
-  console.log("breed:", breed);
-  console.log("pets:", pets);
+
+  // console.log("Location:", location);
+  // console.log("animal:", animal);
+  // console.log("breed:", breed);
+  // console.log("pets:", pets);
 
   useEffect(() => {
     requestPets();
-    if (animal) {
-      requestBreedList()
-    }
-  }, [location, animal, breed])
+  }, [])
 
 
 
-  async function requestBreedList() {
-    const res = await fetch(
-      `http://pets-v2.dev-apis.com/breeds?animal=${animal}`
-    )
-    const json = await res.json();
-    console.log("json:", json);
-    const breedList = json.breeds || [];
-    setBreedList(breedList);
-  }
+
 
   async function requestPets() {
     // & breed=${ breed }
@@ -39,14 +30,18 @@ function SearchParams() {
       `http://pets-v2.dev-apis.com/pets?animal=${animal}&location=${location}&breed=${breed}`
     );
     const json = await res.json();
-    console.log("json:", json);
+    // console.log("json:", json);
     setPets(json.pets);
   }
-  console.log("breedList:", breedList);
+  // console.log("breeds:", breeds);
   // const location = "Seattle, WA";
+  console.log("status:", status);
   return (
     <div className="search-params">
-      <form>
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        requestPets();
+      }}>
         <label htmlFor="location">
           Location
           <input id="location" value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Location" />
@@ -79,15 +74,16 @@ function SearchParams() {
           <select
             id="breed"
             value={breed}
+            disabled={!animal}
             onChange={(e) => {
               setBreed(e.target.value);
             }}
           >
 
-            <option value="">Select an option</option>
+            <option value="">{status === "loading" ? "Loading..." : "Select an option"}</option>
             {/* <option value="dog">Dog</option>
             <option value="cat">Cat</option> */}
-            {breedList.map((breed) => (
+            {breeds.map((breed) => (
               <option key={breed} value={breed}>
                 {breed}
               </option>
