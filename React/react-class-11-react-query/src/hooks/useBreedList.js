@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import fetchBreedList from "../services/fetchBreedList";
 import { useQuery } from "@tanstack/react-query";
 function useBreedList(animal) {
-
   const results = useQuery(["breeds", animal], fetchBreedList);
   console.log("useBreedList results:", results);
 
