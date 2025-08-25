@@ -2,6 +2,7 @@ import React from 'react'
 import { useParams } from "react-router";
 import fetchPet from '../services/fetchPet';
 import { useQuery } from "@tanstack/react-query";
+
 function Details() {
   const { id } = useParams();
   const results = useQuery(["details", id], fetchPet);
@@ -16,6 +17,7 @@ function Details() {
   const pet = results.data.pets[0];
   return (
     <div className="details">
+
       <div>
         <h1>{pet.name}</h1>
         <h2>{`${pet.animal} — ${pet.breed} — ${pet.city}, ${pet.state}`}</h2>
