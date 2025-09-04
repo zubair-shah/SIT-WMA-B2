@@ -5,14 +5,14 @@ import Results from "./Results";
 import Button from '@mui/material/Button';
 import { useQuery } from "@tanstack/react-query";
 import fetchSearch from "../services/fetchSearch";
-import AdoptedPetContext from "../context/AdoptedPetContext";
+// import AdoptedPetContext from "../context/AdoptedPetContext";
 const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
 
 function SearchParams() {
   // const [location, setLocation] = useState("");
   const [animalForBreed, setAnimal] = useState("");
   // add at top of SearchParams render function
-  const [adoptedPet] = useContext(AdoptedPetContext);
+  // const [adoptedPet] = useContext(AdoptedPetContext);
   // const [breed, setBreed] = useState("");
   const [requestParams, setRequestParams] = useState({
     location: "",
@@ -41,13 +41,13 @@ function SearchParams() {
       }}>
 
 
-        {
+        {/* {
           adoptedPet ? (
             <div className="pet image-container">
               <img src={adoptedPet.images[0]} alt={adoptedPet.name} />
             </div>
           ) : null // you have to remove this semi-colon, my auto-formatter adds it back if I delete it
-        }
+        } */}
 
 
         <label htmlFor="location">

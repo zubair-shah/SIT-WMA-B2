@@ -4,13 +4,13 @@ import fetchPet from '../services/fetchPet';
 import { useQuery } from "@tanstack/react-query";
 import Carousel from "../components/Carousel";
 import Modal from "../components/Modal";
-import AdoptedPetContext from "../context/AdoptedPetContext";
+// import AdoptedPetContext from "../context/AdoptedPetContext";
 function Details() {
   const { id } = useParams();
   const navigate = useNavigate();
   const results = useQuery(["details", id], fetchPet);
   const [showModal, setShowModal] = useState(false);
-  const [, setAdoptedPet] = useContext(AdoptedPetContext);
+  // const [, setAdoptedPet] = useContext(AdoptedPetContext);
   console.log('results', results);
   if (results.isLoading) {
     return (
@@ -37,7 +37,7 @@ function Details() {
                 <h1>Would you like to adopt {pet.name}?</h1>
                 <div className="buttons">
                   <button onClick={() => {
-                    setAdoptedPet(pet);
+                    // setAdoptedPet(pet);
                     navigate("/");
                   }}>Yes</button>
                   <button onClick={() => setShowModal(false)}>No</button>

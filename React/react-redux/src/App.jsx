@@ -9,6 +9,9 @@ import {
 import Home from './pages/Home'
 import Details from './pages/Details'
 import AdoptedPetContext from "./context/AdoptedPetContext";
+import { Provider } from 'react-redux';
+import { store } from './redux/store'
+import Counter from './pages/Counter';
 function App() {
   const queryClient = new QueryClient();
   // top of App function body
@@ -26,6 +29,10 @@ function App() {
     {
       path: "/details/:id",
       element: <Details />,
+    },
+    {
+      path: "/counter",
+      element: <Counter />,
     }
   ]);
 
@@ -33,11 +40,12 @@ function App() {
   return (
     <div>
       <QueryClientProvider client={queryClient}>
-        <AdoptedPetContext.Provider value={adoptedPet}>
-
+        {/* <AdoptedPetContext.Provider value={adoptedPet}> */}
+        <Provider store={store}>
           <RouterProvider router={router} />
+        </Provider>
 
-        </AdoptedPetContext.Provider>
+        {/* </AdoptedPetContext.Provider> */}
 
       </QueryClientProvider>
     </div>
